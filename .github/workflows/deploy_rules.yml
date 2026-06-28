@@ -1,0 +1,33 @@
+name: Deploy SIEM Rules
+
+on:
+  push:
+    branches:
+      - main  # Əgər əsas qolunun adı 'master'-dirsə, bura master yaz
+
+jobs:
+  splunk_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+
+      - name: Sync Rules to Splunk Enterprise
+        run: |
+          echo "Splunk API tokenindən istifadə edilərək qaydalar sinxronizasiya olunur..."
+          # Bura növbəti addımda Splunk API üçün icra olunacaq skript gələcək
+        env:
+          SPLUNK_TOKEN: ${{ secrets.SPLUNK_TOKEN }}
+
+  qradar_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+
+      - name: Sync Rules to IBM QRadar
+        run: |
+          echo "QRadar API tokenindən istifadə edilərək qaydalar yüklənir..."
+          # Bura növbəti addımda QRadar API üçün icra olunacaq skript gələcək
+        env:
+          QRADAR_TOKEN: ${{ secrets.QRADAR_TOKEN }}
