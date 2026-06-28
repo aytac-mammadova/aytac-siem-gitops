@@ -1,0 +1,25 @@
+title: New Local/Domain User Account Created
+id: 7e6a8f3c-1d2b-4e5a-9c8f-1a2b3c4d5e6f
+status: stable
+description: Yeni lokal və ya domain istifadəçisinin yaradılmasını aşkarlayır (T1136 - persistance).
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+author: SOC team
+date: 2026/06/28
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4720
+  condition: selection
+fields:
+  - TargetUserName
+  - SubjectUserName
+  - SubjectDomainName
+falsepositives:
+  - HR/IT tərəfindən səlahiyyətli user yaradılması
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1136.001
