@@ -1,0 +1,21 @@
+title: WMI Event Subscription Persistence
+id: b7f8a9b0-c1d2-3456-efab-789012345678
+status: stable
+description: Persistence üçün istifadə olunan WMI permanent event subscription yaradılmasını aşkarlayır.
+references:
+  - https://attack.mitre.org/techniques/T1546/003/
+author: SOC team
+logsource:
+  product: windows
+  category: wmi_event
+detection:
+  selection:
+    EventID:
+      - 19
+      - 20
+      - 21
+  condition: selection
+level: high
+tags:
+  - attack.persistence
+  - attack.t1546.003
