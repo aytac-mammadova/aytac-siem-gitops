@@ -1,0 +1,32 @@
+title: Successful Logon Base Event
+id: d4e5f6a7-b8c9-0123-defa-456789012345
+name: successful_logon_base
+status: stable
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+  condition: selection
+level: low
+---
+title: Successful Logon Following Brute Force
+id: e5f6a7b8-c9d0-1234-efab-567890123456
+status: experimental
+description: Brute force cəhdlərindən sonra eyni IP-dən uğurlu giriş baş verirsə kritik hadisə kimi aşkarlayır.
+references:
+  - https://attack.mitre.org/techniques/T1110/
+author: SOC team
+correlation:
+  type: temporal_ordered
+  rules:
+    - failed_logon_base
+    - successful_logon_base
+  group-by:
+    - IpAddress
+  timespan: 10m
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1110
