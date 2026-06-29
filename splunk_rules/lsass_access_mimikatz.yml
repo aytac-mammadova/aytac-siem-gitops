@@ -1,0 +1,22 @@
+title: LSASS Process Access (Credential Dumping)
+id: 28c9d0e1-f2a3-4567-bcde-890123456789
+status: stable
+description: LSASS proseslərinə şübhəli müdaxiləni aşkarlayır (Mimikatz / procdump - T1003.001).
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+author: SOC team
+logsource:
+  product: windows
+  category: process_access
+detection:
+  selection:
+    TargetImage|endswith: '\lsass.exe'
+    GrantedAccess|contains:
+      - '0x1010'
+      - '0x1410'
+      - '0x143a'
+  condition: selection
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.001
