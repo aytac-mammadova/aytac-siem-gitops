@@ -1,0 +1,31 @@
+name: Deploy SIEM Rules
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'splunk_rules/**'
+      - 'scripts/deploy_splunk.py'
+      - 'requirements.txt'
+  workflow_dispatch:
+
+jobs:
+  deploy-splunk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Deploy to Splunk
+        env:
+          SPLUNK_HOST: https://159.89.92.178:8089
+          SPLUNK_TOKEN: $ secrets.SPLUNK_TOKEN 
+        run: python scripts/deploy_splunk.py
