@@ -1,0 +1,23 @@
+title: OWASP A03 - Command Injection
+id: a1b2c3d4-0004-4000-8000-000000000004
+status: experimental
+description: Detects OS command injection patterns
+author: SOC team
+date: 2026/06/30
+tags:
+  - attack.execution
+  - attack.t1059
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - ";cat "
+      - ";ls "
+      - "|whoami"
+      - "$(id)"
+      - "`id`"
+      - ";nc "
+      - "&&curl"
+  condition: selection
+level: critical
