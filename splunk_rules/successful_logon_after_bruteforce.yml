@@ -1,32 +1,28 @@
-title: Successful Logon Base Event
-id: d4e5f6a7-b8c9-0123-defa-456789012345
-name: successful_logon_base
-status: stable
-logsource:
-  product: windows
-  service: security
-detection:
-  selection:
-    EventID: 4624
-  condition: selection
-level: low
----
-title: Successful Logon Following Brute Force
-id: e5f6a7b8-c9d0-1234-efab-567890123456
+title: Explicit Credential Use (Potential Lateral Movement)
+id: 7d3a0b7c-1234-4abc-9def-0123456789ab
 status: experimental
-description: Brute force cəhdlərindən sonra eyni IP-dən uğurlu giriş baş verirsə kritik hadisə kimi aşkarlayır.
+description: |
+    Detects logon attempts using explicit credentials (EventID 4648).
+    Common indicator of lateral movement after credential theft
+    (Mimikatz, pass-the-hash, RunAs abuse).
 references:
-  - https://attack.mitre.org/techniques/T1110/
+    - https://attack.mitre.org/techniques/T1078/
 author: SOC team
-correlation:
-  type: temporal_ordered
-  rules:
-    - failed_logon_base
-    - successful_logon_base
-  group-by:
-    - IpAddress
-  timespan: 10m
-level: critical
+date: 2026/06/30
 tags:
-  - attack.credential_access
-  - attack.t1110
+    - attack.lateral_movement
+    - attack.defense_evasion
+    - attack.t1078
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4648
+    filter_machine:
+        TargetUserName|endswith: '$'
+    condition: selection and not filter_machine
+level: medium
+falsepositives:
+    - Legitimate RunAs by administrators
+    - Scheduled tasks with stored credentials
