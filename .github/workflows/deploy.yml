@@ -27,5 +27,5 @@ jobs:
       - name: Deploy to Splunk
         env:
           SPLUNK_HOST: https://159.89.92.178:8089
-          SPLUNK_TOKEN: $ secrets.SPLUNK_TOKEN 
+          SPLUNK_TOKEN: eyJraWQiOiJzcGx1bmsuc2VjcmV0IiwiYWxnIjoiSFM1MTIiLCJ2ZXIiOiJ2MiIsInR0eXAiOiJzdGF0aWMifQ.eyJpc3MiOiJhZG1pbiBmcm9tIFNwbHVuay1zZXJ2ZXIiLCJzdWIiOiJhZG1pbiIsImF1ZCI6ImdpdGh1Yi1kZXBsb3kgIiwiaWRwIjoiU3BsdW5rIiwianRpIjoiYWIwMjRlYzA1MzU4MDZjOGQ5ZWFmMmI2MGM2NWNlODVmOTExNDgyNTYyZjZkYThkMjMzZDljZmZhMTJmYzU4OSIsImlhdCI6MTc4MjgwODYxNSwiZXhwIjoxODE0MjU4MjE1LCJuYnIiOjE3ODI4MDg2MTV9.rG5JONU-1ydnTn_iLJ_CcnTABdbx-j65cPGG9btt0U_hi6aJORNLr4vuQMhSbpFsUyV6BvkX7kiKOzV8oelcxA
         run: python scripts/deploy_splunk.py
