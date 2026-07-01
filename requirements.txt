@@ -2,3 +2,6 @@ pysigma>=0.11
    pysigma-backend-splunk>=1.1
    pyyaml>=6.0
    requests>=2.31
+pysigma-backend-qradar-aql>=0.5
+   pysigma-pipeline-sysmon>=1.0
+   sigma-cli>=1.0
