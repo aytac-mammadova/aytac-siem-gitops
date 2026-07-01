@@ -1,0 +1,28 @@
+title: HTTP Request (base)
+name: http_any_request
+status: experimental
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-method|exists: true
+  condition: selection
+---
+title: HTTP Request Flood (DoS)
+id: 9a1c0010-0000-0000-0000-000000000010
+status: experimental
+description: 300+ requests per minute from one IP (DoS/DDoS)
+author: Aytac
+date: 2026/06/30
+tags:
+  - attack.t1498
+correlation:
+  type: event_count
+  rules:
+    - http_any_request
+  group-by:
+    - c-ip
+  timespan: 1m
+  condition:
+    gte: 300
+level: high
