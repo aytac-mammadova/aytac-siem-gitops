@@ -5,8 +5,8 @@ on:
     branches: [main]
     paths:
       - 'splunk_rules/**'
-      - 'scripts/deploy_splunk.py'
-      - 'requirements.txt'
+      - 'qradar_rules/**'
+      - 'scripts/**'
   workflow_dispatch:
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -26,6 +26,6 @@ jobs:
 
       - name: Deploy to Splunk
         env:
-          SPLUNK_HOST: https://159.89.92.178:8089
-          SPLUNK_TOKEN: eyJraWQiOiJzcGx1bmsuc2VjcmV0IiwiYWxnIjoiSFM1MTIiLCJ2ZXIiOiJ2MiIsInR0eXAiOiJzdGF0aWMifQ.eyJpc3MiOiJhZG1pbiBmcm9tIFNwbHVuay1zZXJ2ZXIiLCJzdWIiOiJhZG1pbiIsImF1ZCI6ImdpdGh1Yi1kZXBsb3kgIiwiaWRwIjoiU3BsdW5rIiwianRpIjoiYWIwMjRlYzA1MzU4MDZjOGQ5ZWFmMmI2MGM2NWNlODVmOTExNDgyNTYyZjZkYThkMjMzZDljZmZhMTJmYzU4OSIsImlhdCI6MTc4MjgwODYxNSwiZXhwIjoxODE0MjU4MjE1LCJuYnIiOjE3ODI4MDg2MTV9.rG5JONU-1ydnTn_iLJ_CcnTABdbx-j65cPGG9btt0U_hi6aJORNLr4vuQMhSbpFsUyV6BvkX7kiKOzV8oelcxA
+          SPLUNK_HOST: ${{ secrets.SPLUNK_HOST }}
+          SPLUNK_TOKEN: ${{ secrets.SPLUNK_TOKEN }}
         run: python scripts/deploy_splunk.py
