@@ -7,6 +7,7 @@ on:
       - 'splunk_rules/**'
       - 'qradar_rules/**'
       - 'scripts/**'
+      - 'requirements.txt'
   workflow_dispatch:
 
 jobs:
@@ -29,3 +30,23 @@ jobs:
           SPLUNK_HOST: ${{ secrets.SPLUNK_HOST }}
           SPLUNK_TOKEN: ${{ secrets.SPLUNK_TOKEN }}
         run: python scripts/deploy_splunk.py
+
+  deploy-qradar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate QRadar AQL
+        env:
+          QRADAR_HOST: ${{ secrets.QRADAR_HOST }}
+          QRADAR_TOKEN: ${{ secrets.QRADAR_TOKEN }}
+        run: python scripts/deploy_qradar.py
