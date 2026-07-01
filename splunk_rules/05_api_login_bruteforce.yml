@@ -1,0 +1,29 @@
+title: API Login Failed (base)
+name: api_login_failed
+status: experimental
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-stem: '/api/login'
+    sc-status: 401
+  condition: selection
+---
+title: API Login Brute Force
+id: 9a1c0005-0000-0000-0000-000000000005
+status: experimental
+description: 5+ failed logins on /api/login from one IP within 5 min (OWASP A07)
+author: Aytac
+date: 2026/06/30
+tags:
+  - attack.t1110.001
+correlation:
+  type: event_count
+  rules:
+    - api_login_failed
+  group-by:
+    - c-ip
+  timespan: 5m
+  condition:
+    gte: 5
+level: high
