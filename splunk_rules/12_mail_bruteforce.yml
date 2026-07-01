@@ -1,0 +1,32 @@
+title: Mail Auth Failure (base)
+name: mail_auth_failed
+status: experimental
+logsource:
+  product: dovecot
+  service: auth
+detection:
+  selection:
+    message|contains:
+      - 'authentication failed'
+      - 'auth failed'
+      - 'SASL LOGIN authentication failed'
+  condition: selection
+---
+title: Mail Server Authentication Brute Force
+id: 9a1c0012-0000-0000-0000-000000000012
+status: experimental
+description: 10+ failed mail auths from one IP in 5 min
+author: Aytac
+date: 2026/06/30
+tags:
+  - attack.t1110.001
+correlation:
+  type: event_count
+  rules:
+    - mail_auth_failed
+  group-by:
+    - src_ip
+  timespan: 5m
+  condition:
+    gte: 10
+level: high
