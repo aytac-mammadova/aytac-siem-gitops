@@ -1,0 +1,28 @@
+title: HTTP 403 Forbidden (base)
+name: http_403
+status: experimental
+logsource:
+  category: webserver
+detection:
+  selection:
+    sc-status: 403
+  condition: selection
+---
+title: HTTP 403 Forbidden Spike
+id: 9a1c0007-0000-0000-0000-000000000007
+status: experimental
+description: 15+ Forbidden responses from one IP in 5 min (OWASP A01)
+author: Aytac
+date: 2026/06/30
+tags:
+  - attack.t1190
+correlation:
+  type: event_count
+  rules:
+    - http_403
+  group-by:
+    - c-ip
+  timespan: 5m
+  condition:
+    gte: 15
+level: medium
