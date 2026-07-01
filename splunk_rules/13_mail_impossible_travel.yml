@@ -1,0 +1,30 @@
+title: Mail Login OK (base)
+name: mail_login_ok
+status: experimental
+logsource:
+  product: dovecot
+  service: auth
+detection:
+  selection:
+    message|contains: 'Login OK'
+  condition: selection
+---
+title: Impossible Travel Login
+id: 9a1c0013-0000-0000-0000-000000000013
+status: experimental
+description: Same user logging in from 2+ countries within 60 min
+author: Aytac
+date: 2026/06/30
+tags:
+  - attack.t1078
+correlation:
+  type: value_count
+  rules:
+    - mail_login_ok
+  group-by:
+    - user
+  timespan: 60m
+  condition:
+    gte: 2
+    field: geo_country
+level: critical
