@@ -12,4 +12,4 @@ detection:
   selection:
     cs-uri-query|re: '(?i)(union(\s|\+)+select|select.+from|or(\s|\+)+1=1|sleep\(|information_schema|--\s|;--)'
   condition: selection
-level: high
+level: critical
